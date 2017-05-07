@@ -18,75 +18,43 @@
 git squid bash tar zip wget
 ```
 
-### Modo de uso (manual) / How to use (manual)
+### Modo de uso / How to use
 
-La ACL blackweb.txt ya viene optimizada para [Squid-Cache](http://www.squid-cache.org/), por tanto puede ejecutar el siguiente script, ubicar la ACL en el directorio de su preferencia y activar la regla de [Squid-Cache](http://www.squid-cache.org/) para su uso / The ACL blackweb.txt is already optimized for [Squid-Cache](http://www.squid-cache.org/), so you can run the following script, locate the ACL in the directory of your preference and activate the [Squid-Cache](http://www.squid-cache.org/) Rule for your use
+La ACL blackweb.txt ya viene optimizada para [Squid-Cache](http://www.squid-cache.org/), por tanto puede ejecutar el script blackweb.sh, ubicar la ACL en el directorio de su preferencia y activar la regla de [Squid-Cache](http://www.squid-cache.org/) para su uso / The ACL blackweb.txt is already optimized for [Squid-Cache](http://www.squid-cache.org/), so you can run the script blackweb.sh, locate the ACL in the directory of your preference and activate the [Squid-Cache](http://www.squid-cache.org/) Rule for your use
 
 ```
-#!/bin/bash
-### BEGIN INIT INFO
-# Provides:		Blackweb
-# Required-Start:	$remote_fs $syslog
-# Required-Stop:	$remote_fs $syslog
-# Default-Start:	2 3 4 5
-# Default-Stop:		0 1 6
-# Short-Description:	Start daemon at boot time
-# Description:		Enable service provided by daemon
-# Author:		Maravento.com
-# Path:			/etc/init.d
-### END INIT INFO
+wget https://github.com/maravento/blackweb/raw/master/blackweb.sh
+sudo chmod +x blackweb.sh && sudo ./blackweb.sh
 
-blw=/etc/acl # destination_folder_to_store_blackweb (e.g: /etc/acl)
-if [ ! -d $blw ]; then mkdir -p $blw; fi
-wget -c https://github.com/maravento/blackweb/raw/master/blackweb.tar.gz
-wget -c https://github.com/maravento/blackweb/raw/master/blackweb.md5
-
-echo "Checking Sum..."
-a=$(md5sum blackweb.tar.gz | awk '{print $1}')
-b=$(cat blackweb.md5 | awk '{print $1}')
-	if [ "$a" = "$b" ]
-	then 
-		echo "Sum Matches"
-		tar -C $blw -xvzf blackweb.tar.gz
-		rm -rf blackweb*
-		echo "OK"
-	else
-		echo "Bad Sum. Abort"
-		rm -rf blackweb*
-		exit
-fi
 ```
 
-### Modo de uso (actualización) / How to use (Update)
+### Actualización BLs / Update BLs
 
 También puede descargar el proyecto Blackweb y actualizar la ACL blackweb.txt en dependencia de sus necesidades / You can also download the Blackweb project and update the blackweb.txt ACL depending on your needs
 
 ```
 git clone https://github.com/maravento/blackweb.git
+sudo cp -f blackweb/bwupdate.sh /etc/init.d
+sudo chown root:root /etc/init.d/bwupdate.sh
+sudo chmod +x /etc/init.d/bwupdate.sh
+sudo /etc/init.d/bwupdate.sh
 ```
-Copie el script y ejecútelo / Copy the script and run:
+
+###  Verifique su ejecución / Check execution (/var/log/syslog):
+
+Ejecución exitosa / Successful execution
 ```
-sudo cp -f blackweb/blackweb.sh /etc/init.d
-sudo chown root:root /etc/init.d/blackweb.sh
-sudo chmod +x /etc/init.d/blackweb.sh
-sudo /etc/init.d/blackweb.sh
+Blackweb for Squid: Done 06/05/2017 15:47:14
 ```
-Cron task:
+Ejecución fallida / Execution failed
+
 ```
-sudo crontab -e
-@weekly /etc/init.d/blackweb.sh
+Blackweb for Squid: Abort 06/05/2017 15:47:14 Check Internet Connection
 ```
-Verifique su ejecución / Check execution: /var/log/syslog.log:
-```
-Blackweb for Squid: 28/09/2016 15:47:14
-```
-Descarga incompleta / Incomplete download:
-```
-Blackweb for Squid: Abort 14/06/2016 16:35:38 Check Internet Connection
-```
+
 ### Regla de [Squid-Cache](http://www.squid-cache.org/) / [Squid-Cache](http://www.squid-cache.org/) Rule
 
-Edit /etc/squid3/squid.conf - /etc/squid/squid.conf:
+Edit /etc/squid/squid.conf:
 ```
 # INSERT YOUR OWN RULE(S) HERE TO ALLOW ACCESS FROM YOUR CLIENTS
 acl blackweb dstdomain -i "/etc/acl/blackweb.txt"
