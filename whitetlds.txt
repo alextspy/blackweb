@@ -984,6 +984,7 @@
 .com.google
 .com.googlepages.com
 .com.s3-website.eu-central-1.amazonaws.com
+.com-----1.s3-website.eu-central-1.amazonaws.com
 .co.php
 .dzcom
 .dropbox
@@ -1030,7 +1031,9 @@
 .servenet
 .serveorg
 .sex-in-com
+.security-threat48.s3.eu-central-1.amazonaws.com
 .system32update.com.s3-website.eu-central-1.amazonaws.com
+.tank.system
 .the
 .thomas
 .tom
@@ -1039,6 +1042,7 @@
 .two
 .txt
 .united
+.update.microsoftcom
 .urban
 .valor
 .vic

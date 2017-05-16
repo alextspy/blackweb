@@ -6846,7 +6846,6 @@ ipv6.google.com
 .ramajudicial.gov.co
 .registraduria.gov.co
 .reintegracion.gov.co
-.rni.unidadvictimas.gov.co
 .rtvc.gov.co
 .ruafsvr2.sispro.gov.co
 .rusicst.mininterior.gov.co
@@ -6883,6 +6882,8 @@ ipv6.google.com
 .teatromunicipal.gov.co
 .uiaf.gov.co
 .unidadvictimas.gov.co
+.rni.unidadvictimas.gov.co
+.vivantov2.unidadvictimas.gov.co
 .urnadecristal.gov.co
 .vivedigital.gov.co
 .wssisbenconsulta.sisben.gov.co

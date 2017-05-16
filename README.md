@@ -10,7 +10,7 @@
 
 |File|BL Domains|File size|
 |----|----------|---------|
-|blackweb.txt|5.258.755|110,4 Mb|
+|blackweb.txt|6.242.455|139,3 Mb|
 
 ### Dependencias / Dependencies
 
@@ -20,27 +20,28 @@ git squid bash tar zip wget
 
 ### Modo de uso / How to use
 
-La ACL blackweb.txt ya viene optimizada para [Squid-Cache](http://www.squid-cache.org/), por tanto puede ejecutar el script blackweb.sh, ubicar la ACL en el directorio de su preferencia y activar la regla de [Squid-Cache](http://www.squid-cache.org/) para su uso / The ACL blackweb.txt is already optimized for [Squid-Cache](http://www.squid-cache.org/), so you can run the script blackweb.sh, locate the ACL in the directory of your preference and activate the [Squid-Cache](http://www.squid-cache.org/) Rule for your use
+La ACL **blackweb.txt** ya viene optimizada para [Squid-Cache](http://www.squid-cache.org/). Descárguela, descomprímala, ponga la ACL en el directorio de su preferencia y active la regla de [Squid-Cache](http://www.squid-cache.org/) (El directorio por defecto es **/etc/acl**) / The ACL **blackweb.txt** is already optimized for [Squid-Cache](http://www.squid-cache.org/). Download it, decompress it, put the ACL in the directory of your preference and activate the [Squid-Cache](http://www.squid-cache.org/) rule (The default directory is **/etc/acl**)
 
 ```
-wget https://github.com/maravento/blackweb/raw/master/blackweb.sh
-sudo chmod +x blackweb.sh && sudo ./blackweb.sh
+if [ ! -d /etc/acl ]; then mkdir -p /etc/acl; fi
+wget https://github.com/maravento/blackweb/raw/master/blackweb.tar.gz
+tar -C /etc/acl -xvzf blackweb.tar.gz
 
 ```
 
 ### Actualización BLs / Update BLs
 
-También puede descargar el proyecto Blackweb y actualizar la ACL blackweb.txt en dependencia de sus necesidades / You can also download the Blackweb project and update the blackweb.txt ACL depending on your needs
+También puede descargar el proyecto Blackweb y actualizar la ACL **blackweb.txt** en dependencia de sus necesidades / You can also download the Blackweb project and update the **blackweb.txt** ACL depending on your needs
 
 ```
 git clone https://github.com/maravento/blackweb.git
-sudo cp -f blackweb/bwupdate.sh /etc/init.d
-sudo chown root:root /etc/init.d/bwupdate.sh
-sudo chmod +x /etc/init.d/bwupdate.sh
-sudo /etc/init.d/bwupdate.sh
+sudo cp -f blackweb/blackweb.sh /etc/init.d
+sudo chown root:root /etc/init.d/blackweb.sh
+sudo chmod +x /etc/init.d/blackweb.sh
+sudo /etc/init.d/blackweb.sh
 ```
 
-###  Verifique su ejecución / Check execution (/var/log/syslog):
+#####  Verifique su ejecución / Check execution (/var/log/syslog):
 
 Ejecución exitosa / Successful execution
 ```
@@ -139,15 +140,13 @@ http_access deny blackweb
 
 [Wikipedia Top Level Domains](https://en.wikipedia.org/wiki/List_of_Internet_top-level_domains)
 
-[whitetlds](https://github.com/maravento/blackweb/raw/master/whitetlds.txt)
+##### Domains Debugging
 
-##### Own lists
+[Whitetlds](https://github.com/maravento/blackweb/raw/master/whitetlds.txt)
 
 [Blackurls](https://github.com/maravento/blackweb/raw/master/blackurls.txt)
 
 [Whiteurls](https://github.com/maravento/blackweb/raw/master/whiteurls.txt)
-
-##### URLs Validation
 
 [httpstatus](https://httpstatus.io/)
 
